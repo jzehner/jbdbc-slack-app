@@ -30,6 +30,8 @@ router.post('/sendmessage', function(req, res){
         
     });
     
+    console.log(req.body);
+    
     res.send("Success");
 });
 
