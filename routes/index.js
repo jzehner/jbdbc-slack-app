@@ -1,7 +1,8 @@
 var express = require('express');
 var Slack = require('node-slack');
 var slackDomain = 'et-jbdbc'; 
-var slackToken = 'eqAJpc6Z6iyOI2gnMRFhkG65 ';
+//var slackToken = 'eqAJpc6Z6iyOI2gnMRFhkG65';
+var slackToken = 'MwfFA0lvXsvB6fQHkqIYklJr';
 var slack = new Slack(slackDomain,slackToken);
 var router = express.Router();
 
@@ -19,6 +20,17 @@ router.post('/incoming', function(req, res){
     });
     
     res.json(reply);
+});
+
+router.post('/sendmessage', function(req, res){
+    var post = slack.send({
+        text: req.body.sendText,
+        channel: '#' + req.body.sendChannel,
+        username: req.body.sendUsername
+        
+    });
+    
+    res.send("Success");
 });
 
 module.exports = router;
