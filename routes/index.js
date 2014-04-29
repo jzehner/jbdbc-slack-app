@@ -1,8 +1,8 @@
 var express = require('express');
 var Slack = require('node-slack');
-var slackDoman = ''; 
-var token = 'eqAJpc6Z6iyOI2gnMRFhkG65 ';
-var slack = new Slack(domain,token);
+var slackDomain = 'et-jbdbc'; 
+var slackToken = 'eqAJpc6Z6iyOI2gnMRFhkG65 ';
+var slack = new Slack(slackDomain,slackToken);
 var router = express.Router();
 
 /* GET home page. */
@@ -19,6 +19,6 @@ router.post('/incoming', function(req, res){
     });
     
     res.json(reply);
-}
+});
 
 module.exports = router;
