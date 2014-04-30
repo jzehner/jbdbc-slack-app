@@ -16,27 +16,42 @@ router.get('/', function(req, res) {
 
 router.post('/incoming', function(req, res){
     var reply = {};
-    switch(req.body.trigger_word){
-        case 'hi':
-            reply = slack.respond(req.body,function(hook){
-                return {
-                    text: 'Test reply to ' + hook.user_name,
-                    username: 'Hotel'
-                };
-            });
-            break;
-        case 'welcome':
-            var data = {
-                "email":req.body.user_name,
-                "slackId":req.body.user_id   
-            }
-            request.post({url:"/fireEvent/beaconEntry", body:JSON.stringify(data)},function(e,r,b){
-                
-            });
-            break;
-        default:
-            console.log(req.body);
-            break;
+    
+    if(req.body.text.indexOf("wake up call") > -1){
+        var regex = /(?i)[0-9]{1,2}:??[0-9]{0,2}\\s??(?:am|pm)/
+        var result = string.match(regex);
+        if(result[0] != null){
+            
+        }
+        reply = slack.respond(req.body, function(hook){
+            return { text: 'We have placed a wake up call for ' + result[0],
+                    username:'Hotel'
+                   };
+        });
+    }
+    else{
+        switch(req.body.trigger_word){
+            case 'hi':
+                reply = slack.respond(req.body,function(hook){
+                    return {
+                        text: 'Test reply to ' + hook.user_name,
+                        username: 'Hotel'
+                    };
+                });
+                break;
+            case 'welcome':
+                var data = {
+                    "email":req.body.user_name,
+                    "slackId":req.body.user_id   
+                }
+                request.post({url:"/fireEvent/beaconEntry", body:JSON.stringify(data)},function(e,r,b){
+
+                });
+                break;
+            default:
+                console.log(req.body);
+                break;
+        }
     }
     
     
