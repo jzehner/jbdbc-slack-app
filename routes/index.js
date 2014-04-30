@@ -35,6 +35,7 @@ router.post('/incoming', function(req, res){
             });
             break;
         default:
+            console.log(req.body);
             break;
     }
     
