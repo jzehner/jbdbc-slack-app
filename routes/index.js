@@ -26,7 +26,7 @@ router.post('/incoming', function(req, res){
         }
         else{
             reply = slack.respond(req.body, function(hook){
-                return { text: 'We have placed a wake up call for ' + result[0],
+                return { text: 'We will call you at ' + result[0],
                         username:'Hotel'
                        };
             });
