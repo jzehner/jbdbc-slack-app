@@ -18,16 +18,19 @@ router.post('/incoming', function(req, res){
     var reply = {};
     
     if(req.body.text.indexOf("wake up call") > -1){
-        var regex = /(?i)[0-9]{1,2}:??[0-9]{0,2}\\s??(?:am|pm)/
-        var result = string.match(regex);
-        if(result[0] != null){
-            
+        var regex = /[0-9]{1,2}:??[0-9]{0,2}(?:am|pm)/
+        var result = req.body.text.match(regex);
+        if(result == null || result[0] == null){
+            console.log("Could not find a time");
+            console.log(req.body);
         }
-        reply = slack.respond(req.body, function(hook){
-            return { text: 'We have placed a wake up call for ' + result[0],
-                    username:'Hotel'
-                   };
-        });
+        else{
+            reply = slack.respond(req.body, function(hook){
+                return { text: 'We have placed a wake up call for ' + result[0],
+                        username:'Hotel'
+                       };
+            });
+        }
     }
     else{
         switch(req.body.trigger_word){
