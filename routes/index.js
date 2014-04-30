@@ -1,10 +1,11 @@
 var express = require('express');
 var Slack = require('node-slack');
+var request = require('request');
 var slackDomain = 'et-jbdbc'; 
 //var slackToken = 'eqAJpc6Z6iyOI2gnMRFhkG65';
 //Mobile
-//var slackToken = 'MwfFA0lvXsvB6fQHkqIYklJr';
-var slackToken = 'peaMT9FiqLHrYxyybld0jmYc';
+var slackToken = 'MwfFA0lvXsvB6fQHkqIYklJr';
+//var slackToken = 'peaMT9FiqLHrYxyybld0jmYc';
 var slack = new Slack(slackDomain,slackToken);
 var router = express.Router();
 
@@ -25,11 +26,12 @@ router.post('/incoming', function(req, res){
             });
             break;
         case 'welcome':
-            reply = slack.respond(req.body, function(hook){
-                return {
-                    text: 'Welcome to you',
-                    username:'Hotel'
-                }
+            var data = {
+                "email":req.body.user_name,
+                "slackId":req.body.user_id   
+            }
+            request.post({url:"/fireEvent/beaconEntry", body:JSON.stringify(data)},function(e,r,b){
+                
             });
             break;
         default:
