@@ -27,17 +27,30 @@ router.post('/incoming', function(req, res){
         else{
             console.log("Setting up wake up call for " + result[0]);
             var triggerUrl = 'https://shielded-fortress-9160.herokuapp.com/fireEvent/keywordEntry';
-            var options = {
+            //var triggerUrl = 'http://localhost:3000/fireEvent/keywordEntry';
+            var params = {
                 "email":"jzehner@exacttarget.com",
                 "slackId":"1234",
                 "keyword":"WAKEUP",
                 "value":result[0]
             }
-            request.post({url:triggerUrl,body:JSON.stringify(options)}, function(e,r,b){
+            var headers = {
+                'Content-Type':'application/json'
+            }
+            var options = {
+                url: triggerUrl,
+                method: 'POST',
+                headers: headers,
+                json: params
+            }
+            
+            request(options, function(e,r,b){
                 console.log("Error: " + e);
                 console.log("Request: " + r.body);
                 console.log("Body: " + b);
             });
+            
+            
         }
     }
     else if(req.body.text.indexOf("checkout") > -1){
@@ -47,6 +60,10 @@ router.post('/incoming', function(req, res){
     res.json(reply);
 });
 
+router.post('/fireEvent/keywordEntry', function(req, res){
+    console.log("Hi");
+    console.log(req.body);
+});
 
 router.post('/sendmessage', function(req, res){
     var post = slack.send({
