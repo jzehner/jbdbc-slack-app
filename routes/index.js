@@ -80,6 +80,15 @@ router.post('/incoming', function(req, res){
             });
         
     }
+    else if(req.body.text.indexOf("coffee") > -1){
+        reply = slack.respond(req.body,function(hook){
+            return{
+                text: "We have a Starbucks accross the street for the lobby",
+                username: "Hilton Indy"
+            }
+        });
+    }
+    
     res.json(reply);
 });
 
