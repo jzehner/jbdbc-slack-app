@@ -25,6 +25,7 @@ router.post('/incoming', function(req, res){
             console.log(req.body);
         }
         else{
+            console.log("Setting up wake up call for " + result[0]);
             var triggerUrl = 'https://shielded-fortress-9160.herokuapp.com/fireEvent/keywordEntry';
             var options = {
                 "email":"jzehner@exacttarget.com",
@@ -33,7 +34,9 @@ router.post('/incoming', function(req, res){
                 "value":result[0]
             }
             request.post({url:triggerUrl,body:JSON.stringify(options)}, function(e,r,b){
-                
+                console.log("Error: " + e);
+                console.log("Request: " + r);
+                console.log("Body: " + b);
             });
         }
     }
