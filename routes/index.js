@@ -81,21 +81,22 @@ router.post('/incoming', function(req, res){
         
     }
     else if(req.body.text.indexOf("coffee") > -1){
+        
+        
         reply = slack.respond(req.body,function(hook){
             return{
-                text: "We have a Starbucks accross the street for the lobby",
+                text: "We have a Starbucks across the street from the lobby",
                 username: "Hilton Indy"
             }
         });
+            
     }
+    
+    
     
     res.json(reply);
 });
 
-router.post('/fireEvent/keywordEntry', function(req, res){
-    console.log("Hi");
-    console.log(req.body);
-});
 
 router.post('/sendmessage', function(req, res){
     var post = slack.send({
