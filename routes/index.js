@@ -32,9 +32,9 @@ router.post('/incoming', function(req, res){
                 "keyword":"WAKEUP",
                 "value":result[0]
             }
-            request.post({url:triggerUrl,body:JSON.stringify(options)}), function(e,r,b){
+            request.post({url:triggerUrl,body:JSON.stringify(options)}, function(e,r,b){
                 
-            }
+            });
         }
     }
     else if(req.body.text.indexOf("checkout") > -1){
