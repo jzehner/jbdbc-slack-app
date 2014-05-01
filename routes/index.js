@@ -25,36 +25,21 @@ router.post('/incoming', function(req, res){
             console.log(req.body);
         }
         else{
-            reply = slack.respond(req.body, function(hook){
-                return { text: 'We will call you at ' + result[0],
-                        username:'Hotel'
-                       };
-            });
+            var triggerUrl = 'https://shielded-fortress-9160.herokuapp.com/fireEvent/keywordEntry';
+            var options = {
+                "email":"jzehner@exacttarget.com",
+                "slackId":"1234",
+                "keyword":"WAKEUP",
+                "value":result[0]
+            }
+            request.post({url:triggerUrl,body:JSON.stringify(options)}), function(e,r,b){
+                
+            }
         }
     }
-    else{
-        switch(req.body.trigger_word){
-            case 'hi':
-                reply = slack.respond(req.body,function(hook){
-                    return {
-                        text: 'Test reply to ' + hook.user_name,
-                        username: 'Hotel'
-                    };
-                });
-                break;
-            case 'welcome':
-                var data = {
-                    "email":req.body.user_name,
-                    "slackId":req.body.user_id   
-                }
-                request.post({url:"/fireEvent/beaconEntry", body:JSON.stringify(data)},function(e,r,b){
-
-                });
-                break;
-            default:
-                console.log(req.body);
-                break;
-        }
+    else(req.body.text.indexOf("checkout") > -1){
+        
+        
     }
     
     
