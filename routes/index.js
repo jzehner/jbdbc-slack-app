@@ -61,7 +61,7 @@ router.post('/incoming', function(req, res){
                 "email":"jzehner@exacttarget.com",
                 "slackId":"1234",
                 "keyword":"CHECKOUT",
-                "value":""
+                "value":"value"
             }
             var headers = {
                 'Content-Type':'application/json'
