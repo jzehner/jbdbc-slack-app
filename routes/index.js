@@ -35,7 +35,7 @@ router.post('/incoming', function(req, res){
             }
             request.post({url:triggerUrl,body:JSON.stringify(options)}, function(e,r,b){
                 console.log("Error: " + e);
-                console.log("Request: " + r);
+                console.log("Request: " + r.body);
                 console.log("Body: " + b);
             });
         }
