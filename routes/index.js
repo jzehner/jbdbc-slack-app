@@ -37,14 +37,10 @@ router.post('/incoming', function(req, res){
             }
         }
     }
-    else(req.body.text.indexOf("checkout") > -1){
+    else if(req.body.text.indexOf("checkout") > -1){
         
         
     }
-    
-    
-    
-    
     res.json(reply);
 });
 
