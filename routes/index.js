@@ -102,7 +102,7 @@ router.post('/sendmessage', function(req, res){
     var post = slack.send({
         text: req.body.sendText,
         channel: '#' + req.body.sendChannel,
-        username: req.body.sendUsername
+        username: "Hilton Indy"
         
     });
     
