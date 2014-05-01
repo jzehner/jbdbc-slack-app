@@ -55,6 +55,29 @@ router.post('/incoming', function(req, res){
     }
     else if(req.body.text.indexOf("checkout") > -1){
         
+            var triggerUrl = 'https://shielded-fortress-9160.herokuapp.com/fireEvent/keywordEntry';
+            //var triggerUrl = 'http://localhost:3000/fireEvent/keywordEntry';
+            var params = {
+                "email":"jzehner@exacttarget.com",
+                "slackId":"1234",
+                "keyword":"CHECKOUT",
+                "value":""
+            }
+            var headers = {
+                'Content-Type':'application/json'
+            }
+            var options = {
+                url: triggerUrl,
+                method: 'POST',
+                headers: headers,
+                json: params
+            }
+            
+            request(options, function(e,r,b){
+                console.log("Error: " + e);
+                console.log("Request: " + r.body);
+                console.log("Body: " + b);
+            });
         
     }
     res.json(reply);
